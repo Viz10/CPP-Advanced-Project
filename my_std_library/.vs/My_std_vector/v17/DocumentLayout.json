@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:My_std_vector.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\mySTL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:mySTL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\Singleton.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:Singleton.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\Singleton.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:Singleton.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,7 +32,7 @@
               "RelativeDocumentMoniker": "My_std_vector.cpp",
               "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\My_std_vector.cpp",
               "RelativeToolTip": "My_std_vector.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-02T22:34:37.845Z",
               "IsPinned": true,
@@ -36,15 +40,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "mySTL.h",
-              "DocumentMoniker": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\mySTL.h",
-              "RelativeDocumentMoniker": "mySTL.h",
-              "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\mySTL.h",
-              "RelativeToolTip": "mySTL.h",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAYwBMAAAAYAAAA",
+              "DocumentIndex": 2,
+              "Title": "Singleton.h",
+              "DocumentMoniker": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\Singleton.h",
+              "RelativeDocumentMoniker": "Singleton.h",
+              "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\Singleton.h",
+              "RelativeToolTip": "Singleton.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-18T23:07:04.1Z",
+              "WhenOpened": "2025-03-25T19:26:03.718Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Singleton.cpp",
+              "DocumentMoniker": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\Singleton.cpp",
+              "RelativeDocumentMoniker": "Singleton.cpp",
+              "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\Singleton.cpp",
+              "RelativeToolTip": "Singleton.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-25T19:25:52.278Z",
               "IsPinned": true,
               "EditorCaption": ""
             },

@@ -1,11 +1,2 @@
 ﻿  My_std_vector.cpp
-E:\INFO\Githubs\CPP-Advanced-Project\my_std_library\mySTL.h(22,4): warning C4984: 'if constexpr' is a C++17 language extension
-  (compiling source file 'My_std_vector.cpp')
-  E:\INFO\Githubs\CPP-Advanced-Project\my_std_library\mySTL.h(20,9):
-  This diagnostic occurred in the compiler generated function 'mySTL::Pair<First,Second> &mySTL::Pair<First,Second>::operator =(const mySTL::Pair<T,U> &)'
-  E:\INFO\Githubs\CPP-Advanced-Project\my_std_library\mySTL.h(22,4):
-  the template instantiation context (the oldest one first) is
-  	E:\INFO\Githubs\CPP-Advanced-Project\my_std_library\mySTL.h(10,8):
-  	while compiling class template 'mySTL::Pair'
-  
   My_std_vector.vcxproj -> E:\INFO\Githubs\CPP-Advanced-Project\my_std_library\x64\Debug\My_std_vector.exe

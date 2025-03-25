@@ -1,8 +1,11 @@
 #pragma once
+
 #include <utility>
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <crtdbg.h>
+#define _CRTDBG_MAP_ALLOC
 
 namespace mySTL {
 
@@ -13,7 +16,7 @@ namespace mySTL {
 
 		Pair() = default;	
 
-		template<typename T, typename U>
+		template<typename T, typename U> /// universal reference constructor
 		Pair(T&& first, U&& second) :first{ static_cast<First>(std::forward<T>(first)) }, second{ static_cast<Second>(std::forward<U>(second)) } {}
 
 		template<typename T, typename U> 
@@ -47,11 +50,11 @@ namespace mySTL {
 	};
 
 	template<typename T> /// normal definition
-	void Dummy<T>::display(T data) {
+	void mySTL::Dummy<T>::display(T data) {
 		std::cout << data;
 	}
 
-	template<> /// template full specialization for method
+	template<> ///class template full-specialization for class method
 	void Dummy<int>::display(int data) {
 		std::cout << data << " is an int";
 	}
