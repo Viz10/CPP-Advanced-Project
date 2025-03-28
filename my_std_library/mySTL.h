@@ -4,8 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <crtdbg.h>
-#define _CRTDBG_MAP_ALLOC
 
 namespace mySTL {
 
@@ -14,17 +12,17 @@ namespace mySTL {
 
 	public:
 
-		Pair() = default;	
+		Pair() = default;
 
 		template<typename T, typename U> /// universal reference constructor
 		Pair(T&& first, U&& second) :first{ static_cast<First>(std::forward<T>(first)) }, second{ static_cast<Second>(std::forward<U>(second)) } {}
 
-		template<typename T, typename U> 
-		Pair& operator=(const Pair<T,U>& other) {
-		
+		template<typename T, typename U>
+		Pair& operator=(const Pair<T, U>& other) {
+
 			if constexpr (std::is_same_v<First, T> && std::is_same_v<Second, U>) { /// compile time template check
 				if (this == &other) { /// makes sense only when T and U match First and Second
-					return *this;  
+					return *this;
 				}
 			}
 
@@ -44,21 +42,16 @@ namespace mySTL {
 
 	public:
 
-		Dummy() = default;
-		void display(T data);
-		
+		Dummy() { data = 0; }
+
+		Dummy(T data) :data{ data } {}
+		void show();
+
+		template<typename U>
+		void showSum(U other) {
+			std::cout << (data + other);
+		}
+
+		T data;
 	};
-
-	template<typename T> /// normal definition
-	void mySTL::Dummy<T>::display(T data) {
-		std::cout << data;
-	}
-
-	template<> ///class template full-specialization for class method
-	void Dummy<int>::display(int data) {
-		std::cout << data << " is an int";
-	}
-
-	///////////////////////////
-
 }

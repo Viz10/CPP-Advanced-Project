@@ -1,2 +1,5 @@
-﻿  My_std_vector.cpp
+﻿  main.cpp
+  std_vector.cpp
+  testers.cpp
+  Generating Code...
   My_std_vector.vcxproj -> E:\INFO\Githubs\CPP-Advanced-Project\my_std_library\x64\Debug\My_std_vector.exe

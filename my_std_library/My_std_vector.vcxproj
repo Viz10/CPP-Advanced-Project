@@ -128,8 +128,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="My_std_vector.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mySTL.cpp" />
+    <ClCompile Include="std_vector.cpp" />
     <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="testers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data.in" />
@@ -137,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="mySTL.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="testers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
