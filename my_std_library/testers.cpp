@@ -1,32 +1,86 @@
 #include "testers.h"
-
+#include <functional>
 std::ifstream fin("data.in");
 
-template<typename Args> /// universal reference
-void print(Args&& arg) {
-    std::cout << "universal " << arg << "\n";
+namespace MyTupleFunctions {
+
+    template<typename Args> /// universal reference
+    void print(Args&& arg) {
+        std::cout << "universal " << arg << "\n";
+    }
+
+    template<typename Args> /// lvalue reference
+    void print(Args& arg) {
+        std::cout << "lvalue " << arg << "\n";
+    }
+
+    template<typename...Args>
+    void print_data(Args&&...args) {
+        //(...,(cout<<args<<" "));
+        (..., print(std::forward<Args>(args)));
+        std::cout << "\nsize: ";
+        std::cout << sizeof...(Args);
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+   
+    template<typename Tuple,size_t... Ind>
+    void printTupleHelper(Tuple&&tuple,std::index_sequence<Ind...> index) {
+        (..., (std::cout << std::get<Ind>(std::forward<Tuple>(tuple)) << " "));
+    }
+
+
+    template<typename...Args>
+    void printTuple(const std::tuple<Args...>&tuple) {
+        constexpr size_t size = sizeof...(Args);
+         auto index_list = std::make_index_sequence<size>();
+        printTupleHelper(tuple,index_list);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    /* this passes the tuple as an lvalue and will make copies along the way , ...Args are needed for calc the size
+    template<typename Function,typename...Args>
+    void myApply(Function f, const std::tuple<Args...>& tuple) {
+        constexpr size_t size = sizeof...(Args);
+        auto index_list = std::make_index_sequence<size>();
+        myApplyHelper(f,tuple, index_list);
+    }
+    */
+
+    template<typename Function, typename Tuple, size_t... Ind>
+    void myApplyHelper(Function&& f, Tuple&& tuple, std::index_sequence<Ind...>) {
+        std::forward<Function>(f)(std::get<Ind>( std::forward<Tuple>(tuple))... );
+    }
+
+   // this passes the tuple as forwarded, ...Args is not needed as we can deduce the size by tuple_size
+    template<typename Function, typename Tuple>
+    void myApply(Function&& f, Tuple&& tuple) {
+        constexpr size_t size = std::tuple_size_v<std::remove_reference_t<Tuple>>; /// tuple_size_v works with base types like std::tuple<int,int>, not references => must strip the reference
+        auto index_list = std::make_index_sequence<size>{};
+        myApplyHelper(std::forward<Function>(f), std::forward<Tuple>(tuple), index_list);
+    }
+
+    /// usind forward to avoid coppies especially for the tuple
 }
 
-template<typename Args> /// lvalue reference
-void print(Args& arg) {
-    std::cout << "lvalue " << arg << "\n";
-}
+    void testTupleMethods() {
 
-template<typename...Args>
-void print_tuple(Args&&...args) {
-    //(...,(cout<<args<<" "));
-    (..., print(std::forward<Args>(args)));
-    std::cout << "\nsize: ";
-    std::cout << sizeof...(Args);
-}
+        using namespace MyTupleFunctions;
 
-void testTupleMethods() {
+        int a = 101;
 
-    int a = 0;
-    print_tuple(1, 2, std::string("aaa"), false, a);
-    //auto tuple = std::make_tuple(1, 1, 1, 1);
-    //cout<<std::tuple_size<decltype(tuple)>::value;
-}
+        auto lambda = [](auto&&... args) {  (..., print(std::forward<decltype(args)>(args))); }; ///as using a generic lambda here doesnt allow in this scope templating , auto must be used
+        auto tuple = std::make_tuple(1, 2, std::string("aaa"), false, a);                        ///and as for forward to know the type , decltype fetches the underlying type of the current element
+        
+        myApply(lambda, std::move(tuple));
+        //myApply(lambda, std::move(tuple)); /// will use the lvalue as std get extracts them from a lvalue tuple , must use std move for rvalue
+        
+
+        //printTuple<int,bool,const char*,int>(tuple);
+        //printTuple(tuple);
+        //print_data(1, 2, std::string("aaa"), false, a);
+    }
 
 /////////////////////////////////////
 
@@ -51,22 +105,6 @@ void testSingleton() {
 
 /////////////////////////////////////
 
-template<typename T> /// normal definition
-void mySTL::Dummy<T>::show() {
-    std::cout << data;
-}
-
-template<> ///class template full-specialization for class method
-void mySTL::Dummy<double>::show() {
-    std::cout << data << " is a double";
-}
-
-template<> /// for class template
-template<> /// for func template
-void mySTL::Dummy<int>::showSum(int other) {
-    std::cout << data <<" " << other << " all are int";
-}
-
 void testPair() {
 
     std::string line;
@@ -84,7 +122,7 @@ void testPair() {
     std::cout << pair1.first << " " << pair1.second;
     std::cout << "\n";
 
-    mySTL::Dummy<double> dummy(11.4);
-    dummy.showSum(22);
+    mySTL::Dummy dummy(11);
+    dummy.show();
 
 }
