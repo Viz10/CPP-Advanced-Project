@@ -131,6 +131,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="testers.cpp" />
+    <ClCompile Include="TypeTraitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data.in" />

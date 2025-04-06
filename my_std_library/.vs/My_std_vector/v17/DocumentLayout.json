@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\testers.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:testers.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\TemplateSpecialization.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{132A1BD5-853B-4DF1-81FE-02B999B27995}|My_std_vector.vcxproj|solutionrelative:TemplateSpecialization.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,42 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "testers.cpp",
-              "DocumentMoniker": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\testers.cpp",
-              "RelativeDocumentMoniker": "testers.cpp",
-              "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\testers.cpp",
-              "RelativeToolTip": "testers.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-29T19:33:15.918Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "main.cpp",
               "DocumentMoniker": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
               "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-29T19:33:18.867Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TemplateSpecialization.h",
-              "DocumentMoniker": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\TemplateSpecialization.h",
-              "RelativeDocumentMoniker": "TemplateSpecialization.h",
-              "ToolTip": "E:\\INFO\\Githubs\\CPP-Advanced-Project\\my_std_library\\TemplateSpecialization.h",
-              "RelativeToolTip": "TemplateSpecialization.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-29T21:55:15.445Z",
               "IsPinned": true,
               "EditorCaption": ""
             },

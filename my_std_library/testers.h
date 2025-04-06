@@ -11,4 +11,6 @@
 
 void testSingleton();
 void testTupleMethods();
-void testPair();
+void testPair(); 
+void testTypeTraits();
+

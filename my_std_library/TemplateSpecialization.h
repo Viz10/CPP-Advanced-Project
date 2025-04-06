@@ -19,7 +19,7 @@ namespace mySTL {
         T data;
     };
 
-
+    /// full specializations aren`t inline by default
     template<typename T>
     inline void Dummy<T>::show() {
         std::cout << data;
@@ -30,11 +30,11 @@ namespace mySTL {
         std::cout << data << " is a double";
     }
 
-
     template<>
     template<>
     inline void Dummy<int>::showSum(int other) {
         std::cout << data << " " << other << " all are int";
     }
-
+    /// ^^ inexistent in Java
+    /// however not a good idea to specialize templated methods in C++ rather overload them
 }
