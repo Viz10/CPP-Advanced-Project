@@ -1,6 +1,7 @@
 #include "testers.h"
 #include <functional>
 #include <concepts>
+#include <array>
 
 std::ifstream fin("data.in");
 
@@ -29,7 +30,7 @@ namespace MyTupleFunctions {
     void print_data(Args&&...args) {
         
         (..., print(std::forward<Args>(args)));
-        std::cout << "\nsize: ";
+        std::cout << "pack size: ";
         std::cout << sizeof...(Args);
         //(...,(cout<<args<<" "));
     }
@@ -37,8 +38,9 @@ namespace MyTupleFunctions {
     ////////////////////////////////////////////////////////////////////////////
    
     template<typename Tuple,size_t... Ind>
-    void printTupleHelper(Tuple&&tuple,std::index_sequence<Ind...> index) {
-        (..., (std::cout << std::get<Ind>(std::forward<Tuple>(tuple)) << " "));
+    void printTupleHelper(const Tuple&tuple,std::index_sequence<Ind...> index) {
+        std::cout << "tuple elements: ";
+        (..., (std::cout << std::get<Ind>(tuple) << " "));
     }
 
 
@@ -57,21 +59,21 @@ namespace MyTupleFunctions {
     }
 
     // this solution passes the tuple as an lvalue and will make copies along the way , ...Args are needed for calc the size and specify the types for the tuple
-    // its safer , no other kind of type can be sent to this fucntion like an int or anything , however it makes it rigid
+    // its safer , no other kind of type can be sent to this function like an int or anything , however it makes it rigid
     template<typename Function, typename...Args>
-    void myApply1(Function f, const std::tuple<Args...>& tuple) {
+    void myApply1(Function &&f, const std::tuple<Args...>& tuple) {
         constexpr size_t size = sizeof...(Args);
-        auto index_list = std::make_index_sequence<size>();
-        myApplyHelper(f, tuple, index_list);
+        auto index_list = std::make_index_sequence<size>(); /// 0 1 2 3 ...
+        myApplyHelper(std::forward<Function>(f), tuple, index_list);
     }
 
    
    // this passes the tuple as it is , it forwards it through , ...Args is not needed as we can deduce the size by tuple_size
-   // more generic : allows also pair and Tuple-likes objects to be passed using the concept to the template
+   // more generic : allows also pair and Tuple-likes objects to be passed using the concept to the template , not allowing compilation if none of these types passed
     template<typename T>
-    concept Tuple = requires {typename std::tuple_size<std::remove_reference_t<T>>::type; };
+    concept TupleType = requires { typename std::tuple_size<std::remove_reference_t<T>>::type; };
 
-    template<typename Function, typename Tuple>
+    template<typename Function, TupleType Tuple>
     void myApply2(Function&& f, Tuple&& tuple) {
         constexpr size_t size = std::tuple_size_v<std::remove_reference_t<Tuple>>; /// tuple_size_v works with base types like std::tuple<int,int>, not references => must strip the reference
         auto index_list = std::make_index_sequence<size>{};
@@ -85,24 +87,27 @@ namespace MyTupleFunctions {
 
 void testTupleMethods() {
 
-        using namespace MyTupleFunctions;
-
         int a = 101;
 
-        auto lambda = [](auto&&... args) {  (..., print(std::forward<decltype(args)>(args))); }; ///as using a generic lambda here doesnt allow in this scope templating , auto must be used
+        auto lambda_for_print = [](auto&&... args) {  (..., MyTupleFunctions::print(std::forward<decltype(args)>(args))); }; ///as using a generic lambda here doesnt allow in this scope templating , auto must be used
                                                                                                 ///and as for forward to know the type , decltype fetches the underlying type of the current element
         auto tuple = std::make_tuple(1, 2, std::string("aaa"), false, a);
+        auto tuple2 = tuple;
+        std::array<int, 5> arr= {1,2,3,4,5} ;
        
         
-        myApply2(lambda, tuple);
+        MyTupleFunctions::myApply1(lambda_for_print, tuple); // lval
         std::cout << "\n";
-        myApply2(lambda, std::pair(3,3));
-        //myApply1(lambda, std::move(tuple)); /// will use the lvalue as std get extracts them from a lvalue tuple , must use std move for rvalue
-        
-
-        //printTuple<int,bool,const char*,int>(tuple);
-        //printTuple(tuple);
-        //print_data(1, 2, std::string("aaa"), false, a);
+        MyTupleFunctions::myApply2(lambda_for_print, std::pair(3,43)); /// doesnt work with apply1
+        std::cout << "\n";
+        MyTupleFunctions::myApply2(lambda_for_print, arr);
+        std::cout << "\n";
+        MyTupleFunctions::myApply2(lambda_for_print, std::move(tuple)); /// rval
+        std::cout << "\n";
+        MyTupleFunctions::printTuple(tuple2);
+        std::cout << "\n\n";
+        MyTupleFunctions::print_data(1, 2, std::string("aaa"), false, a);
+        std::cout << "\n";
     }
 
 /////////////////////////////////////
