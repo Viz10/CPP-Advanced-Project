@@ -8,17 +8,25 @@ namespace myStd {
 	class Pair {
 
 	public:
-
+ 
+		//template<typename T, typename U, typename = std::enable_if_t<std::is_constructible_v<First, T&&> && std::is_constructible_v<Second, U&&>>>
+		/// check if the type can be constructed using Args... ,here the types are T&&,U&& because after reference collapsing T and U can be with
+		/// or without & and there must check the constr if accept any of the types ,also allows casts
+		
+		template<typename T, typename U> requires std::is_constructible_v<First, T&&> && std::is_constructible_v<Second, U&&>
+		Pair(T&& first, U&& second) : first{ std::forward<T>(first) }, second{ std::forward<U>(second) } {}
+		
 		Pair() = default;
+
 		Pair(const Pair&) = default; /// pairwise
 
-		//template<typename T, typename U, typename = std::enable_if_t<std::is_constructible_v<First, T&&> && std::is_constructible_v<Second, U&&>>>
-		/// check if the type can be constructed using Args... ,here the types are T&&,U&& ,also allows casts
-		
-		template<typename T, typename U> requires (std::is_constructible_v<First, T&&> && std::is_constructible_v<Second, U&&>)
-		Pair(T&& first, U&& second) : first{ static_cast<First>(std::forward<T>(first)) }, second{ static_cast<Second>(std::forward<U>(second)) } {}
-		
-		
+		template<typename T, typename U> //different types but can be deduced from 
+		Pair(const Pair<T,U>& other) {
+			first = other.first;
+			second = other.second;
+			std::cout << "HERE\n";
+		}
+
 		Pair(Pair&& other) noexcept {
 			first = std::move(other.first);
 			second = std::move(other.second);
@@ -36,7 +44,6 @@ namespace myStd {
 
 		} /// copy assigment
 
-
 		Pair& operator=(Pair&& other) noexcept {
 
 			first = std::move(other.first);
@@ -52,31 +59,39 @@ namespace myStd {
 
 		First first;
 		Second second;
-
 	};
 
 	//////////////////////// exactly like std::pair , assigments and constructions are done pairwise on each term hence potential memory leaks 
 			
-	template <typename T, typename U> /// type deduction guide
-	Pair(T, U) -> Pair<T, U>;
+	template <typename T, typename U> 
+	Pair(T, U) -> Pair<std::remove_cvref_t<T>, std::remove_cvref_t<U>>;
 
+	/// type deduction guide
+	/// if we have an object of type Pair with 2 types T,U let the type be Pair<T, U>
+	/// after calling the constr T ,U can be deduced with & hence we dont want the types to be references , just raw types => & remove
 }
 
 namespace std {
 
-	template<typename First, typename Second>
-	struct tuple_size<myStd::Pair<First, Second>> {
-		static constexpr size_t value = 2; /// size of tuple
-		using type = integral_constant<size_t, value>; 
+	template<typename T>
+	struct TypeIdentity {
+		using type = T;
 	};
 
+	/// in order for the structured binding to work with Pair: the compiler must know the size of the Pair class (tuple_size) , its types stored (tuple_element)
+	/// and to get the element based on provided index (get)
+
+	/// partial specialization , accepts a Pair which will deduce its temple arguments
+	template<typename First, typename Second>
+	struct tuple_size<myStd::Pair<First, Second>> : integral_constant<std::size_t,2> {};
+
+	/// returns First if I==0 or Second , inheriting the type 
 	template<size_t I, typename First, typename Second>
-	struct tuple_element<I, myStd::Pair<First, Second>> {
-		using type = typename conditional<I == 0, First, Second>::type; /// :: type returns First or Second
-	};
-		
+	struct tuple_element<I, myStd::Pair<First, Second>> : TypeIdentity<typename conditional_t<I == 0, First, Second>> {};
+	
+	/// overloads
 	template<size_t N, typename First, typename Second>
-	constexpr auto& get(myStd::Pair<First, Second>& pair) { /// overloads
+	constexpr auto& get(myStd::Pair<First, Second>& pair) { 
 		if constexpr (N == 0) {
 			return pair.first;
 		}
@@ -114,6 +129,5 @@ namespace std {
 			return move(pair.second);
 		}
 	}
-
 
 }
